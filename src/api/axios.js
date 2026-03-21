@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://web-production-1a2f8.up.railway.app/";
+const baseURL = "https://fem.fly.dev/";
 
 const axiosInstance = axios.create({
   baseURL,
