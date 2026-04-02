@@ -1,11 +1,12 @@
 /* ==========================================================================
-   1. SIDEBAR (Existing Logic Maintained)
+   1. SIDEBAR (Fixed Desktop Visibility)
    ========================================================================== */
 .sidebar {
   width: 240px;
   height: 100vh;
   background: rgba(17, 17, 17, 0.6) !important; 
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   position: fixed;
   left: 0;
@@ -17,16 +18,15 @@
   z-index: 1000;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: white;
-}
-
-.sidebar.closed {
-  transform: translateX(-100%);
+  /* Default: Visible on desktop */
+  transform: translateX(0);
 }
 
 .sidebar-logo {
   padding-left: 10px;
   margin-bottom: 40px;
   font-size: 1.5rem;
+  font-weight: bold;
   background: linear-gradient(to right, #6C63FF, #FF6584);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -59,10 +59,22 @@
 .sidebar-logout {
   width: 100%;
   margin-top: auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar-logout:hover {
+  background: rgba(255, 99, 99, 0.2);
+  border-color: #ff6584;
 }
 
 /* ==========================================================================
-   2. TOPBAR (Updated: Floating Glass Design)
+   2. TOPBAR (Floating Glass Design)
    ========================================================================== */
 .topbar {
   display: flex;
@@ -70,7 +82,6 @@
   align-items: center;
   padding: 0 25px;
   height: 70px;
-  /* Floating Logic */
   margin: 15px 20px; 
   position: fixed;
   top: 0;
@@ -78,7 +89,6 @@
   right: 0;
   z-index: 999;
   
-  /* Glassmorphism */
   background: rgba(26, 26, 46, 0.7) !important;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -86,6 +96,7 @@
   border-radius: 16px !important;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   color: white;
+  transition: left 0.3s ease;
 }
 
 .topbar-left {
@@ -110,7 +121,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Modern Hamburger Icon */
 .hamburger-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -138,7 +148,6 @@
   border-radius: 2px;
 }
 
-/* Family Code Badge */
 .family-badge {
   position: relative;
   background: rgba(255, 255, 255, 0.03);
@@ -188,10 +197,11 @@
    ========================================================================== */
 .main-content {
   margin-left: 240px;
-  margin-top: 100px; /* Increased to account for floating topbar height + margin */
+  margin-top: 100px; 
   padding: 20px;
   min-height: calc(100vh - 100px);
   overflow-y: auto;
+  transition: margin-left 0.3s ease;
 }
 
 .overlay {
@@ -202,19 +212,21 @@
 }
 
 /* ==========================================================================
-   4. MOBILE RESPONSIVE
+   4. MOBILE RESPONSIVE (Critical Fixes)
    ========================================================================== */
 @media (max-width: 768px) {
   .sidebar {
+    /* Hide by default on mobile */
     transform: translateX(-100%);
   }
 
   .sidebar.open {
+    /* Show when open class is applied */
     transform: translateX(0);
   }
 
   .topbar {
-    left: 0;
+    left: 0; /* Reset left margin for mobile */
     margin: 10px;
   }
 
@@ -228,9 +240,9 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 769px) {
   .hamburger-btn {
-    display: none;
+    display: none; /* Hide toggle on desktop */
   }
 }
 
