@@ -52,7 +52,7 @@ const Dashboard = () => {
           <small>Monthly Spending</small>
           <h1 className="total-amount">₹ {total.toLocaleString()}</h1>
         </div>
-        <button className="add-btn-main" onClick={() => setShowModal(true)}>
+        <button className="primary-btn" onClick={() => setShowModal(true)}>
           <span>+</span> Add Expense
         </button>
       </div>
