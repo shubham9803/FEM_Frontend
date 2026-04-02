@@ -57,7 +57,6 @@ const Dashboard = () => {
         </button>
       </div>
       
-      // Replace your filter-section div with this for better UX:
 <div className="glass-card filter-section">
   <div className="filter-group">
     <small style={{ color: "#888", display: "block", marginBottom: "5px" }}>Filter by Date</small>
