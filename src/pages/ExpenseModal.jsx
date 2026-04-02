@@ -1,8 +1,20 @@
 import { useState } from "react";
 import axiosInstance from "../api/axios";
 
-const CATEGORIES = ["GROCERIES", "VEGETABLES", "RENT", "BILL", "TRAVEL", "MEDICAL", "OTHER"];
-const MODES = ["CASH", "UPI", "CARD", "NETBANKING"];
+// Synchronized with Django TextChoices
+const CATEGORIES = [
+  "GROCERIES", "VEGETABLES", "RENT", "MEDICAL", "TRAVEL", 
+  "CLOTHING", "KITCHEN", "ELECTRONICS", "DINING_OUT", 
+  "EDUCATION", "ENTERTAINMENT", "UTILITIES", "FUEL", 
+  "INTERNET", "MAINTENANCE", "OTHER"
+];
+
+const MODES = [
+  { value: "CASH", label: "Cash" },
+  { value: "UPI", label: "UPI" },
+  { value: "CARD", label: "Card" },
+  { value: "NETBANKING", label: "Net Banking" }
+];
 
 const ExpenseModal = ({ onClose, onSave }) => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +22,7 @@ const ExpenseModal = ({ onClose, onSave }) => {
     category: "GROCERIES",
     amount: "",
     description: "",
-    payment_mode: "CASH",
+    payment_mode: "CASH", // Now properly initialized
     expense_date: new Date().toISOString().split("T")[0],
   });
 
@@ -19,16 +31,15 @@ const ExpenseModal = ({ onClose, onSave }) => {
     setLoading(true);
     try {
       await axiosInstance.post("api/expenses/create/", formData);
-      onSave(); // Refresh dashboard data
-      onClose(); // Close modal
+      onSave();
+      onClose();
     } catch (err) {
-      console.error(err);
+      console.error("Submission error:", err.response?.data || err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // Inside your return statement:
   return (
     <div className="modal-overlay">
       <div className="glass-card modal-content">
@@ -39,6 +50,7 @@ const ExpenseModal = ({ onClose, onSave }) => {
             <label>Amount (₹)</label>
             <input 
               type="number" 
+              step="0.01" // Important for DecimalField
               placeholder="0.00"
               required 
               value={formData.amount} 
@@ -50,13 +62,28 @@ const ExpenseModal = ({ onClose, onSave }) => {
             <div className="form-group">
               <label>Category</label>
               <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})}>
-                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                {CATEGORIES.map(c => (
+                  <option key={c} value={c}>{c.replace('_', ' ')}</option>
+                ))}
               </select>
             </div>
             <div className="form-group">
               <label>Date</label>
               <input type="date" value={formData.expense_date} onChange={e => setFormData({...formData, expense_date: e.target.value})} />
             </div>
+          </div>
+
+          {/* NEW: Payment Mode Selection */}
+          <div className="form-group">
+            <label>Payment Mode</label>
+            <select 
+              value={formData.payment_mode} 
+              onChange={e => setFormData({...formData, payment_mode: e.target.value})}
+            >
+              {MODES.map(m => (
+                <option key={m.value} value={m.value}>{m.label}</option>
+              ))}
+            </select>
           </div>
 
           <div className="form-group">
