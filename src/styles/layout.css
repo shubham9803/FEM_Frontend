@@ -1,0 +1,211 @@
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #111;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+/* Hidden on mobile */
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+/* Topbar */
+.topbar {
+  height: 60px;
+  background: #1a1a2e;
+  position: fixed;
+  top: 0;
+  left: 220px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: white;
+  z-index: 999;
+}
+
+/* Hamburger */
+.hamburger {
+  font-size: 24px;
+  cursor: pointer;
+  display: block;
+}
+
+/* Content */
+.main-content {
+  margin-left: 220px;
+  margin-top: 60px;
+  padding: 20px;
+  min-height: calc(100vh - 60px); /* ✅ allows growth */
+  overflow-y: auto;
+}
+
+/* Overlay (mobile) */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+}
+
+/* Sidebar Items */
+.sidebar-item {
+  margin-top: 15px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Add to layout.css */
+.sidebar {
+  background: rgba(17, 17, 17, 0.7) !important; /* Transparent dark */
+  backdrop-filter: blur(15px);
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.topbar {
+  background: rgba(26, 26, 46, 0.4) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Dashboard Enhancements */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.total-card h1 {
+  font-size: 3rem;
+  background: linear-gradient(to right, #fff, #6C63FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.add-btn-main {
+  background: #6C63FF;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 15px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+  transition: 0.3s;
+}
+
+.add-btn-main:hover { transform: scale(1.05); }
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+  padding: 0; /* Let table flush to edges */
+}
+
+.expense-table th {
+  color: #888;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.expense-table td {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+/* Sidebar Glass Effect */
+.sidebar {
+  width: 240px;
+  background: rgba(17, 17, 17, 0.6) !important; /* Semi-transparent */
+  backdrop-filter: blur(20px); /* The magic glass effect */
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 15px;
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-logo {
+  padding-left: 10px;
+  margin-bottom: 40px;
+  font-size: 1.5rem;
+  background: linear-gradient(to right, #6C63FF, #FF6584);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Sidebar Item Enhancements */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  color: #aaa;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+/* The Active State Indicator */
+.sidebar-item.active {
+  background: rgba(108, 99, 255, 0.15);
+  color: #6C63FF;
+  border-left: 3px solid #6C63FF;
+}
+
+/* Logout Button alignment */
+.sidebar-logout {
+  width: 100%;
+  margin-top: auto;
+}
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .topbar {
+    left: 0;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}

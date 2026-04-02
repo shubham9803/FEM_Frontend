@@ -4,6 +4,9 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import FamilySetup from "../pages/FamilySetup";
+import MainLayout from "../components/layout/MainLayout";
+import FamilyInfo from "../pages/FamilyInfo";
+import ExpenseHistory from "../pages/ExpenseHistory";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -34,14 +37,37 @@ const AppRoutes = () => {
       />
 
       {/* Protected Route (only when logged in) */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+     <Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <MainLayout>
+        <Dashboard />
+      </MainLayout>
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/family-info"
+  element={
+    <ProtectedRoute>
+      <MainLayout>
+        <FamilyInfo />
+      </MainLayout>
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/history"
+  element={
+    <ProtectedRoute>
+      <MainLayout>
+        <ExpenseHistory />
+      </MainLayout>
+    </ProtectedRoute>
+  }
+/>
       <Route
   path="/family-setup"
   element={

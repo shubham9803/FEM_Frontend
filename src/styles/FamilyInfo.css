@@ -1,0 +1,110 @@
+.family-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Header Card */
+.family-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px !important;
+  background: linear-gradient(135deg, rgba(108, 99, 255, 0.1), rgba(255, 101, 132, 0.1));
+}
+
+.family-info-text h2 {
+  font-size: 2.5rem;
+  margin: 5px 0 0 0;
+}
+
+.family-code-box {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px 25px;
+  border-radius: 15px;
+  border: 1px dashed rgba(108, 99, 255, 0.5);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.family-code-box:hover {
+  background: rgba(108, 99, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.code-display {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6C63FF;
+  letter-spacing: 2px;
+}
+
+/* Members Grid */
+.section-title {
+  color: #888;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.member-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.member-avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.member-details h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.member-details p {
+  margin: 5px 0 0 0;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.role-badge {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: #aaa;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .family-header-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+}
