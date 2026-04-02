@@ -1,149 +1,26 @@
-/* Sidebar */
+/* ==========================================================================
+   1. SIDEBAR (Existing Logic Maintained)
+   ========================================================================== */
 .sidebar {
-  width: 220px;
+  width: 240px;
   height: 100vh;
-  background: #111;
-  color: white;
+  background: rgba(17, 17, 17, 0.6) !important; 
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
   position: fixed;
   left: 0;
   top: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 1000;
-  transition: transform 0.3s ease;
-}
-
-/* Hidden on mobile */
-.sidebar.closed {
-  transform: translateX(-100%);
-}
-
-/* Topbar */
-.topbar {
-  height: 60px;
-  background: #1a1a2e;
-  position: fixed;
-  top: 0;
-  left: 220px;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  color: white;
-  z-index: 999;
-}
-
-/* Hamburger */
-.hamburger {
-  font-size: 24px;
-  cursor: pointer;
-  display: block;
-}
-
-/* Content */
-.main-content {
-  margin-left: 220px;
-  margin-top: 60px;
-  padding: 20px;
-  min-height: calc(100vh - 60px); /* ✅ allows growth */
-  overflow-y: auto;
-}
-
-/* Overlay (mobile) */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 998;
-}
-
-/* Sidebar Items */
-.sidebar-item {
-  margin-top: 15px;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 8px;
-  transition: 0.2s ease;
-}
-
-.sidebar-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* Add to layout.css */
-.sidebar {
-  background: rgba(17, 17, 17, 0.7) !important; /* Transparent dark */
-  backdrop-filter: blur(15px);
-  border-right: 1px solid rgba(255,255,255,0.1);
-}
-
-.topbar {
-  background: rgba(26, 26, 46, 0.4) !important;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Dashboard Enhancements */
-.dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.total-card h1 {
-  font-size: 3rem;
-  background: linear-gradient(to right, #fff, #6C63FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
-}
-
-.add-btn-main {
-  background: #6C63FF;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 15px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
-  transition: 0.3s;
-}
-
-.add-btn-main:hover { transform: scale(1.05); }
-
-/* Table Styling */
-.table-container {
-  overflow-x: auto;
-  padding: 0; /* Let table flush to edges */
-}
-
-.expense-table th {
-  color: #888;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-}
-
-.expense-table td {
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-/* Sidebar Glass Effect */
-.sidebar {
-  width: 240px;
-  background: rgba(17, 17, 17, 0.6) !important; /* Semi-transparent */
-  backdrop-filter: blur(20px); /* The magic glass effect */
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 30px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   z-index: 1000;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
 }
 
 .sidebar-logo {
@@ -155,7 +32,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Sidebar Item Enhancements */
 .sidebar-item {
   display: flex;
   align-items: center;
@@ -174,21 +50,161 @@
   color: white;
 }
 
-/* The Active State Indicator */
 .sidebar-item.active {
   background: rgba(108, 99, 255, 0.15);
   color: #6C63FF;
   border-left: 3px solid #6C63FF;
 }
 
-/* Logout Button alignment */
 .sidebar-logout {
   width: 100%;
   margin-top: auto;
 }
-/* ================= MOBILE ================= */
-@media (max-width: 768px) {
 
+/* ==========================================================================
+   2. TOPBAR (Updated: Floating Glass Design)
+   ========================================================================== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+  height: 70px;
+  /* Floating Logic */
+  margin: 15px 20px; 
+  position: fixed;
+  top: 0;
+  left: 240px; /* Aligns with sidebar width */
+  right: 0;
+  z-index: 999;
+  
+  /* Glassmorphism */
+  background: rgba(26, 26, 46, 0.7) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.logo-text {
+  letter-spacing: 2px;
+  background: linear-gradient(to right, #fff, #6C63FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Modern Hamburger Icon */
+.hamburger-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.hamburger-btn:hover {
+  background: rgba(108, 99, 255, 0.2);
+  border-color: #6C63FF;
+}
+
+.bar {
+  width: 20px;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Family Code Badge */
+.family-badge {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.family-badge:hover {
+  background: rgba(108, 99, 255, 0.15);
+  border-color: rgba(108, 99, 255, 0.5);
+}
+
+.badge-label {
+  font-size: 0.6rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.code-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6C63FF;
+  font-family: monospace;
+}
+
+.copy-toast {
+  position: absolute;
+  bottom: -35px;
+  background: #2ecc71;
+  color: white;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* ==========================================================================
+   3. MAIN CONTENT & OVERLAY
+   ========================================================================== */
+.main-content {
+  margin-left: 240px;
+  margin-top: 100px; /* Increased to account for floating topbar height + margin */
+  padding: 20px;
+  min-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+}
+
+/* ==========================================================================
+   4. MOBILE RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
   }
@@ -199,13 +215,26 @@
 
   .topbar {
     left: 0;
+    margin: 10px;
   }
 
   .main-content {
     margin-left: 0;
+    margin-top: 90px;
   }
 
-  .hamburger {
-    display: block;
+  .logo-text {
+    display: none;
   }
+}
+
+@media (min-width: 1024px) {
+  .hamburger-btn {
+    display: none;
+  }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
