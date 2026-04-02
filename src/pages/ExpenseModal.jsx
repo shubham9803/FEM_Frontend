@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "../api/axios";
 
 // Synchronized with Django TextChoices
@@ -16,25 +16,45 @@ const MODES = [
   { value: "NETBANKING", label: "Net Banking" }
 ];
 
-const ExpenseModal = ({ onClose, onSave }) => {
+const ExpenseModal = ({ onClose, onSave, editData }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     category: "GROCERIES",
     amount: "",
     description: "",
-    payment_mode: "CASH", // Now properly initialized
+    payment_mode: "CASH",
     expense_date: new Date().toISOString().split("T")[0],
   });
+
+  // Effect to pre-fill data if we are editing
+  useEffect(() => {
+    if (editData) {
+      setFormData({
+        category: editData.category,
+        amount: editData.amount,
+        description: editData.description || "",
+        payment_mode: editData.payment_mode,
+        expense_date: editData.expense_date,
+      });
+    }
+  }, [editData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axiosInstance.post("api/expenses/create/", formData);
+      if (editData) {
+        // UPDATE: Using PATCH for the specific expense ID
+        await axiosInstance.patch(`api/expenses/${editData.id}/`, formData);
+      } else {
+        // CREATE: Using POST for a new expense
+        await axiosInstance.post("api/expenses/create/", formData);
+      }
       onSave();
       onClose();
     } catch (err) {
       console.error("Submission error:", err.response?.data || err.message);
+      alert(err.response?.data?.detail || "An error occurred while saving.");
     } finally {
       setLoading(false);
     }
@@ -43,14 +63,14 @@ const ExpenseModal = ({ onClose, onSave }) => {
   return (
     <div className="modal-overlay">
       <div className="glass-card modal-content">
-        <h3>Add New Expense</h3>
+        <h3>{editData ? "Edit Expense" : "Add New Expense"}</h3>
         <form onSubmit={handleSubmit}>
           
           <div className="form-group">
             <label>Amount (₹)</label>
             <input 
               type="number" 
-              step="0.01" // Important for DecimalField
+              step="0.01"
               placeholder="0.00"
               required 
               value={formData.amount} 
@@ -73,7 +93,6 @@ const ExpenseModal = ({ onClose, onSave }) => {
             </div>
           </div>
 
-          {/* NEW: Payment Mode Selection */}
           <div className="form-group">
             <label>Payment Mode</label>
             <select 
@@ -98,7 +117,7 @@ const ExpenseModal = ({ onClose, onSave }) => {
           <div className="modal-actions">
             <button type="button" className="secondary-btn" onClick={onClose}>Cancel</button>
             <button type="submit" className="primary-btn" disabled={loading}>
-              {loading ? "Saving..." : "Save Expense"}
+              {loading ? "Saving..." : editData ? "Update Expense" : "Save Expense"}
             </button>
           </div>
         </form>
